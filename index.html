@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b2942">
+  <meta name="description" content="Vaika application code de la route et mécanique auto — Code de la route en version malagasy et initiation à la mécanique automobile.">
+  <title>Vaika application code de la route et mécanique auto</title>
+
+  <style>
+    :root{
+      --navy:#0b2942;
+      --navy-2:#123d60;
+      --blue:#1672c4;
+      --blue-light:#eaf5ff;
+      --red:#d73538;
+      --gold:#f3b73f;
+      --text:#162738;
+      --muted:#5f7181;
+      --white:#ffffff;
+      --border:rgba(12,41,66,.10);
+      --shadow:0 18px 55px rgba(8,35,58,.14);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      min-height:100%;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:#f4f8fb;
+      overflow-x:hidden;
+      line-height:1.5;
+    }
+
+    .page{
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(22,114,196,.10), transparent 28rem),
+        linear-gradient(180deg,#f7fbff 0%,#edf5fa 100%);
+    }
+
+    /* Header */
+    .top{
+      position:relative;
+      z-index:5;
+      width:min(1180px,100%);
+      margin:0 auto;
+      padding:14px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .brand-logo{
+      width:52px;
+      height:52px;
+      border-radius:15px;
+      overflow:hidden;
+      flex:0 0 auto;
+      background:#fff;
+      box-shadow:0 8px 24px rgba(11,41,66,.16);
+      border:1px solid rgba(11,41,66,.08);
+    }
+
+    .brand-logo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .brand-name{
+      font-size:16px;
+      font-weight:850;
+      color:var(--navy);
+      line-height:1.15;
+    }
+
+    .brand-sub{
+      display:block;
+      margin-top:3px;
+      color:var(--muted);
+      font-size:11px;
+      font-weight:650;
+    }
+
+    .download-top,.download-main{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      text-decoration:none;
+      color:#fff;
+      font-weight:800;
+      background:linear-gradient(135deg,var(--blue),#0b579d);
+      box-shadow:0 10px 24px rgba(22,114,196,.28);
+      transition:transform .18s ease,box-shadow .18s ease;
+    }
+
+    .download-top{
+      padding:11px 16px;
+      border-radius:14px;
+      font-size:13px;
+      white-space:nowrap;
+    }
+
+    .download-top:hover,.download-main:hover{
+      transform:translateY(-2px);
+      box-shadow:0 14px 30px rgba(22,114,196,.34);
+    }
+
+    /* Hero */
+    .hero{
+      position:relative;
+      padding:10px 22px 48px;
+    }
+
+    .hero-inner{
+      position:relative;
+      width:min(1180px,100%);
+      margin:0 auto;
+      min-height:580px;
+      border-radius:32px;
+      overflow:hidden;
+      background:linear-gradient(145deg,#fff 0%,#edf6fc 100%);
+      border:1px solid rgba(12,41,66,.08);
+      box-shadow:var(--shadow);
+    }
+
+    .hero-visual{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+
+    .hero-visual::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.92) 31%,rgba(255,255,255,.25) 62%,rgba(255,255,255,.04) 100%),
+        linear-gradient(180deg,rgba(255,255,255,.10),rgba(11,41,66,.08));
+    }
+
+    .hero-visual img{
+      position:absolute;
+      right:-3%;
+      bottom:0;
+      width:83%;
+      max-width:1000px;
+      height:auto;
+      opacity:.98;
+      filter:drop-shadow(0 18px 22px rgba(10,34,54,.16));
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:2;
+      width:min(610px,58%);
+      padding:70px 48px 56px;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(22,114,196,.10);
+      color:#0b579d;
+      font-size:12px;
+      font-weight:800;
+      margin-bottom:18px;
+    }
+
+    .hero h1{
+      color:var(--navy);
+      font-size:clamp(31px,4.2vw,55px);
+      line-height:1.08;
+      letter-spacing:-1.5px;
+      font-weight:900;
+      margin-bottom:18px;
+    }
+
+    .hero h1 .accent{color:var(--red)}
+
+    .hero p{
+      max-width:570px;
+      color:#405568;
+      font-size:16px;
+      line-height:1.7;
+      margin-bottom:25px;
+    }
+
+    .download-main{
+      padding:15px 22px;
+      border-radius:16px;
+      font-size:15px;
+    }
+
+    .apk-name{
+      margin-top:12px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:650;
+    }
+
+    .apk-name b{color:var(--navy)}
+
+    /* Features */
+    .features-wrap{
+      width:min(1180px,100%);
+      margin:-8px auto 0;
+      padding:0 22px 48px;
+      position:relative;
+      z-index:3;
+    }
+
+    .section-title{
+      text-align:center;
+      margin:0 auto 22px;
+      max-width:680px;
+    }
+
+    .section-title h2{
+      color:var(--navy);
+      font-size:25px;
+      margin-bottom:6px;
+      font-weight:850;
+    }
+
+    .section-title p{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .features{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+
+    .feature{
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:22px;
+      box-shadow:0 8px 25px rgba(12,41,66,.07);
+      transition:transform .18s ease;
+    }
+
+    .feature:hover{transform:translateY(-4px)}
+
+    .feature-icon{
+      width:46px;
+      height:46px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:var(--blue-light);
+      font-size:23px;
+      margin-bottom:13px;
+    }
+
+    .feature h3{
+      color:var(--navy);
+      font-size:16px;
+      margin-bottom:7px;
+    }
+
+    .feature p{
+      color:var(--muted);
+      font-size:13.5px;
+      line-height:1.6;
+    }
+
+    /* APK callout */
+    .apk-box{
+      width:min(900px,calc(100% - 44px));
+      margin:0 auto 52px;
+      padding:24px;
+      display:flex;
+      align-items:center;
+      gap:20px;
+      background:linear-gradient(135deg,#0b2942,#154c73);
+      border-radius:24px;
+      color:#fff;
+      box-shadow:0 18px 40px rgba(11,41,66,.22);
+    }
+
+    .apk-box img{
+      width:76px;
+      height:76px;
+      object-fit:cover;
+      border-radius:18px;
+      background:#fff;
+      flex:0 0 auto;
+    }
+
+    .apk-box h3{font-size:18px;margin-bottom:3px}
+    .apk-box p{font-size:13px;color:rgba(255,255,255,.76)}
+
+    .apk-box .download-main{
+      margin-left:auto;
+      flex:0 0 auto;
+      background:linear-gradient(135deg,var(--gold),#e28b25);
+      box-shadow:none;
+      color:#203040;
+    }
+
+    footer{
+      text-align:center;
+      padding:18px 20px 30px;
+      color:#738291;
+      font-size:12px;
+      font-weight:600;
+    }
+
+    @media(max-width:850px){
+      .hero-inner{min-height:620px}
+      .hero-visual img{
+        width:105%;
+        right:-17%;
+        bottom:-2%;
+        opacity:.52;
+      }
+      .hero-visual::after{
+        background:linear-gradient(180deg,rgba(255,255,255,.94) 0%,rgba(255,255,255,.80) 47%,rgba(255,255,255,.25) 100%);
+      }
+      .hero-content{
+        width:100%;
+        padding:55px 34px 42px;
+      }
+      .features{grid-template-columns:1fr 1fr}
+    }
+
+    @media(max-width:560px){
+      .top{padding:12px 14px}
+      .brand-logo{width:45px;height:45px}
+      .brand-name{font-size:13px}
+      .brand-sub{font-size:10px}
+      .download-top{padding:10px 12px;font-size:12px}
+
+      .hero{padding:5px 14px 38px}
+      .hero-inner{border-radius:25px;min-height:610px}
+      .hero-content{padding:42px 23px 30px}
+      .hero h1{font-size:34px;letter-spacing:-.8px}
+      .hero p{font-size:14px}
+      .hero-visual img{
+        width:140%;
+        right:-38%;
+        bottom:1%;
+        opacity:.72;
+      }
+
+      .features-wrap{padding:0 14px 38px}
+      .features{grid-template-columns:1fr;gap:12px}
+      .feature{padding:18px}
+      .apk-box{
+        width:calc(100% - 28px);
+        flex-wrap:wrap;
+        gap:14px;
+        padding:20px;
+      }
+      .apk-box img{width:62px;height:62px}
+      .apk-box .download-main{width:100%;margin-left:0}
+    }
+
+    @media(max-width:380px){
+      .download-top .short-hide{display:none}
+      .hero h1{font-size:30px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <header class="top">
+      <div class="brand">
+        <div class="brand-logo">
+          <img src="icon-512.png" alt="Logo Vaika">
+        </div>
+        <div>
+          <div class="brand-name">VAIKA</div>
+          <span class="brand-sub">Code de la route & mécanique auto</span>
+        </div>
+      </div>
+
+      <a class="download-top" href="https://github.com/zorainah-bit/code-de-la-route-madagascar/releases/latest/download/Vaika-code.et.mecanique.apk">
+        ⬇ <span>Télécharger <span class="short-hide">l'APK</span></span>
+      </a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+
+          <div class="hero-visual" aria-hidden="true">
+            <img src="Gemini_Generated_Image_p774ojp774ojp774.jpg" alt="">
+          </div>
+
+          <div class="hero-content">
+            <div class="eyebrow">📱 Application Android · Apprentissage hors ligne</div>
+
+            <h1>
+              Vaika application<br>
+              <span class="accent">code de la route</span><br>
+              et mécanique auto
+            </h1>
+
+            <p>
+              Une application éducative complète pour apprendre le <b>code de la route en version malagasy</b>
+              et découvrir les bases de l'<b>initiation à la mécanique auto</b>. Familiarisez-vous avec les
+              règles essentielles de la circulation, les bonnes pratiques de conduite et les notions fondamentales
+              du fonctionnement et de l'entretien d'un véhicule.
+            </p>
+
+            <a class="download-main" href="https://github.com/zorainah-bit/code-de-la-route-madagascar/releases/latest/download/Vaika-code.et.mecanique.apk">
+              ⬇ Télécharger l'application
+            </a>
+
+            <div class="apk-name">Fichier APK : <b>Vaika-code et mécanique.apk</b></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features-wrap">
+        <div class="section-title">
+          <h2>Apprendre, comprendre et progresser</h2>
+          <p>Une application pensée pour faciliter l'apprentissage du code de la route et les premières notions de mécanique automobile.</p>
+        </div>
+
+        <div class="features">
+          <article class="feature">
+            <div class="feature-icon">🚦</div>
+            <h3>Code de la route Malagasy</h3>
+            <p>Apprenez les règles essentielles de la circulation et les notions importantes adaptées à une présentation en version malagasy.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">🔧</div>
+            <h3>Initiation à la mécanique auto</h3>
+            <p>Découvrez les bases du fonctionnement d'une voiture, les principaux éléments mécaniques et les notions utiles pour débuter.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">📚</div>
+            <h3>Apprentissage pratique</h3>
+            <p>Une présentation simple pour mieux comprendre les connaissances indispensables liées à la conduite et à l'automobile.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="apk-box">
+        <img src="icon-512.png" alt="Vaika">
+        <div>
+          <h3>Vaika — Code de la route & mécanique auto</h3>
+          <p>Téléchargez l'application Android et commencez votre apprentissage.</p>
+        </div>
+        <a class="download-main" href="https://github.com/zorainah-bit/code-de-la-route-madagascar/releases/latest/download/Vaika-code.et.mecanique.apk">
+          Télécharger
+        </a>
+      </section>
+    </main>
+
+    <footer>
+      VAIKA · Code de la route en version malagasy · Initiation à la mécanique auto
+    </footer>
+
+  </div>
+</body>
+</html>
